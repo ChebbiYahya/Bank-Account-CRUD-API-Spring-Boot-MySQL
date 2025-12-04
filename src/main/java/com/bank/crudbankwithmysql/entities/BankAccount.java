@@ -1,14 +1,11 @@
 package com.bank.crudbankwithmysql.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -23,24 +20,28 @@ public class BankAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    // Nom du titulaire
-    private String ownerName;
-
-    // IBAN du compte
     @Column(unique = true, nullable = false)
     private String iban;
 
-    // Solde du compte
     @Column(nullable = false)
     @Builder.Default
     private BigDecimal balance = BigDecimal.ZERO;
 
-    // Statut du compte (ACTIVE, BLOCKED, CLOSED…)
     @Builder.Default
-    private String status = "ACTIVE";
+    private String status = "ACTIVE"; // ACTIVE, BLOCKED, CLOSED...
+
+    @Builder.Default
+    private String accountType = "CHECKING"; // CHECKING, SAVINGS...
 
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
+
+    @OneToMany(mappedBy = "bankAccount", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Transaction> transactions = new ArrayList<>();
 
 }

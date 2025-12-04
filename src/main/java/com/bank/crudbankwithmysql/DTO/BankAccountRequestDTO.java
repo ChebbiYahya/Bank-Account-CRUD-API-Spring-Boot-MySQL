@@ -8,7 +8,8 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class BankAccountRequestDTO {
-    private String ownerName;
     private String iban;
     private String status;
+    private String accountType; // CHECKING, SAVINGS...
+    private Long customerId;
 }

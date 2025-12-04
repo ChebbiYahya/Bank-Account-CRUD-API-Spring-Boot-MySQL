@@ -10,14 +10,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BankAccountResponseDTO {
+public class TransactionResponseDTO {
     private Long id;
-    private String iban;
-    private BigDecimal balance;
-    private String status;
-    private String accountType;
+    private String type; // DEPOSIT / WITHDRAW
+    private BigDecimal amount;
+    private String description;
     private LocalDateTime createdAt;
-
-    private Long customerId;
-    private String customerFullName;
+    private BigDecimal balanceAfterOperation;
 }

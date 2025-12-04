@@ -10,7 +10,7 @@ public interface BankAccountService {
 
     BankAccount getAccountById(Long id);
 
-    BankAccount createAccount(BankAccount account);
+    BankAccount createAccount(Long customerId, BankAccount account);
 
     BankAccount updateAccount(Long id, BankAccount account);
 

@@ -38,7 +38,7 @@ public class BankAccountController {
     @PostMapping
     public ResponseEntity<BankAccountResponseDTO> createAccount(@RequestBody BankAccountRequestDTO requestDTO) {
         BankAccount account = bankAccountMapper.toEntity(requestDTO);
-        BankAccount saved = bankAccountService.createAccount(account);
+        BankAccount saved = bankAccountService.createAccount(requestDTO.getCustomerId(), account);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(bankAccountMapper.toResponseDTO(saved));
     }
